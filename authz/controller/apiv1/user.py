@@ -1,4 +1,5 @@
 from authz.util.jsonify import jsonify
+from authz.model import User
 
 class UserController:
 	def get_users():
