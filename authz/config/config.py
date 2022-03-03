@@ -13,7 +13,6 @@ class Config:
 		SQLALCHEMY_DATABASE_URI = environ.get("TECHLAND_AUTHZ_DATABASE_URI", None)
 		SQLALCHEMY_ECHO = DEBUG	
 		SQLALCHEMY_RECORD_QUERIES = DEBUG	
-		
 	######################### User Configurations #########################	
 
 		USER_DEFAULT_ROLE =environ.get("TECHLAND_AUTHZ_USER_DEFAULT_ROLE", "member")
