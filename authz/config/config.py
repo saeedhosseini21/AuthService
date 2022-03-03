@@ -10,7 +10,9 @@ class Config:
 	######################### Database Configurations #########################		
 		
 		SQLALCHEMY_TRACK_MODIFICATIONS = DEBUG
-		
+		SQLALCHEMY_DATABASE_URI = environ.get("TECHLAND_AUTHZ_DATABASE_URI", None)
+		SQLALCHEMY_ECHO = DEBUG	
+		SQLALCHEMY_RECORD_QUERIES = DEBUG	
 		
 	######################### User Configurations #########################	
 
