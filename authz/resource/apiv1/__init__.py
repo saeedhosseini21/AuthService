@@ -1,5 +1,6 @@
 from authz.authz import apiv1 as api
 from authz.resource.apiv1.user import UserResource
+from authz.resource.apiv1.auth import AuthResource
 
 api.add_resource(
 	UserResource,
@@ -14,3 +15,12 @@ api.add_resource(
 	methods=["GET","PATCH","DELETE"],
 	endpoint="user"
  )
+ 
+api.add_resource(
+	AuthResource,
+	"/auth",
+	methods=["GET","POST"],
+	endpoint="auth"
+ )
+
+
