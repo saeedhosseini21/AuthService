@@ -1,10 +1,9 @@
 from flask import Flask, Blueprint
+from flask_restful import Api
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api
-from authz.config import Config
 from flask_migrate import Migrate
-
+from authz.config import Config
 
 db = SQLAlchemy()
 mg = Migrate()
