@@ -12,6 +12,10 @@ RUN pip install -r requirements.txt
 
 COPY . . 
 
+ARG GIT_COMMIT="nocommit"
+ARG GIT_TAG="notag"
+LABEL gitCommit=$GIT_COMMIT gitTag=$GIT_TAG
+
 ENTRYPOINT ./start
 
 
