@@ -1,0 +1,5 @@
+#!/bin/bash
+
+flask db upgrade
+
+gunicorn -b 0.0.0.0:8080 -w 2 --access-logfile - --error-logfile - "authz:create_app()"
