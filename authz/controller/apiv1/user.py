@@ -1,5 +1,5 @@
 from flask import request
-from authz.util.jsonify import jsonify
+from authz.util import jsonify, user_expires_at, now
 from authz.authz import db
 from authz.model import User
 from authz.schema.apiv1 import UserSchema
@@ -12,6 +12,8 @@ class UserController:
 			users = User.query.all()
 		except Exception as e:
 			return jsonify(status=500,code=102) # Database error.
+		if users is None:
+			return jsonify(status=404, code=103) # User is not found.
 		users_schema = UserSchema(many=True)
 		return jsonify({
 			"users": users_schema.dump(users)}
@@ -67,20 +69,59 @@ class UserController:
 	def update_user(user_id):
 		if request.content_type != "application/json":
 			return jsonify (status=415, code=101)
-		user_schema = UserSchema(only=["username","password"])
+		user_schema = UserSchema(only=["password"], unknown="include")
 		try:
-			user_data = user_schema.load(request.get_json())
+			user_data = user_schema.load(request.get_json()) # Read and validate user data.	
 		except Exception as e:
 			return jsonify(status=400, code=104)
-		if not user_data.get("username") or not user_data.get("password"):
-			return jsonify(status=400, code=105) # Empty Data
-		if not User.query.filter_by(id=user_id):
-			pass
-		pass
-		#todo: this must be done just by Admin.
-				
+		if len(user_data) !=2:
+			return jsonify(status=400, code=104)
+		if "password" not in user_data or "oldpassword" not in user_data:
+			return jsonify(status=400, code=104)
+		if not user_data.get("password") or not user_data.get("oldpassword"):
+			return jsonify(status=400, code=105) # Empty data.
+		
+		try:
+			user = User.query.filter_by(id=user_id).first()
+		except Exception as e:
+			return jsonify(status=500,code=102) # Database error.
+		if user is None:
+			return jsonify(status=404, code=103) # User is not found.
+		if user.password != user_data.get("oldpassword"):
+			return jsonify(status=403, code=111)
+		user.password = user_data.get("password") # Set a new password.
+		user.expires_at = user_expires_at()
+		user.last_change_at = now()
+		user.failed_auth_at = None
+		user.failed_auth_count = 0
+		try:
+			db.session.commit() # Execute update command.
+		except Exception as e:
+			db.session.rollback()	
+			return jsonify(status=500,code=102) # Database error.	
+		user_schema = UserSchema()
+		return jsonify(
+			{"user": user_schema.dump(user)}
+		)		
+					
+		
 			
 		
 			
 	def delete_user(user_id):
-		return jsonify(status=501, code=107) #Not Implemented
+		if request.content_type != "application/json":
+			return jsonify (status=415, code=101)
+		try:	
+			user = User.query.get(user_id) # Find the user
+		except Exception as e:
+			return jsonify(status=500,code=102) # Database error.
+		if user is None:
+			return jsonify(status=404, code=103) # User is not found.
+		db.session.delete(user)
+		try:
+			db.session.commit() # Execute update command.
+		except Exception as e:
+			db.session.rollback()	
+			return jsonify(status=500,code=102) # Database error.
+		return jsonify() # User was deleted.			
+		
