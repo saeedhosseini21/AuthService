@@ -12,8 +12,6 @@ class UserController:
 			users = User.query.all()
 		except Exception as e:
 			return jsonify(status=500,code=102) # Database error.
-		if users is None:
-			return jsonify(status=404, code=103) # User is not found.
 		users_schema = UserSchema(many=True)
 		return jsonify({
 			"users": users_schema.dump(users)}
@@ -21,11 +19,10 @@ class UserController:
 
 	def get_user(user_id):
 		if request.content_type != "application/json":
-			return jsonify (status=415, code=101) # Database error.
+			return jsonify (status=415, code=101) # Invalid Media Type
 		user_schema = UserSchema()
 		try:
 			user = User.query.filter_by(id=user_id).first()
-			print(user_id)
 		except Exception as e:
 			return jsonify(status=500,code=102) # Database error.
 		return jsonify(
