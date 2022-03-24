@@ -79,7 +79,7 @@ class AuthController:
 			data = decode(x, Config.SECRET_KEY, Config.JWT_ALGO)
 		except Exception as e:
 			return jsonify(status=500, code=113) #Token validation error
-		return jsonify(state={"data": data})
+		return jsonify()
 
 		
 
