@@ -53,7 +53,7 @@ def test_get_users(client, headers, status, code):
 )
 def test_get_user(client, random_user, headers, status, code):
 	result = client.get(
-		f"/api/v1/user/{random_user}",
+		f"/api/v1/user/{random_user.get('id')}",
 		headers=headers
 	)
 	assert result.status_code == status
@@ -73,7 +73,7 @@ def test_get_user(client, random_user, headers, status, code):
 )
 def test_update_user(client, random_user, headers, body, status, code):
 	result = client.patch(
-		f"/api/v1/user/{random_user}",
+		f"/api/v1/user/{random_user.get('id')}",
 		data=json.dumps(body),
 		headers=headers
 	)
@@ -90,7 +90,7 @@ def test_update_user(client, random_user, headers, body, status, code):
 )
 def test_delete_user(client, random_user, headers, status, code):
 	result = client.delete(
-		f"/api/v1/user/{random_user}",
+		f"/api/v1/user/{random_user.get('id')}",
 		headers=headers
 	)
 	assert result.status_code == status

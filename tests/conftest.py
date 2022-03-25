@@ -17,4 +17,4 @@ def random_user(client):
 		"/api/v1/users",
 		headers={"Content-Type": "application/json"}
 	)
-	return (result.get_json().get("users")[0]).get("id")
+	return (result.get_json().get("users")[0])
