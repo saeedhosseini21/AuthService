@@ -3,7 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/saeedhosseini21/AuthService)](https://github.com/saeedhosseini21/AuthService/stargazers)
 
 # Authentication Micro-service
-Simple authentication micro-service using Python Flask
+Simple authentication micro-service using Python Flask, Pytest and a cloud-native methodology
 
 ## The Aim of this project
 The aim of this project is demonstrating how a cloud-native microservice has been developed using the 12-factor methodology.
@@ -186,3 +186,8 @@ To see the code-coverage of the service, got to /authz/htmlcov and open the inde
 As you can see in the image below, the current code-coverage of this service is 80%.
 
 <img src="images/coverage.png" alt="drawing" width="700"  height="400" />
+
+## How to contribute:
+You can fork this project and develop new features.
+
+Copyright 2022 Saeed Hosseini saeedhosseini21@gmail.com
