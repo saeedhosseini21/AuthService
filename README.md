@@ -182,7 +182,7 @@ If no test fails, the test result will be like this:
 
 #### Code-coverage
 
-To see the code-coverage of the service, got to /authz/htmlcov and open the index.html file.
+To see the code-coverage of the service, go to /authz/htmlcov and open the index.html file.
 As you can see in the image below, the current code-coverage of this service is 80%.
 
 <img src="images/coverage.png" alt="drawing" width="700"  height="400" />
