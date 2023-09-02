@@ -23,7 +23,7 @@ The table below describes some factors of the 12-factor which are implemented in
 
 |Number|Factor|Codebase|Implemented |
 |:-:|:--|:--|:-:|
-| 1 |Codebase|This application contains only one repository and is tracked int Git.|:white_check_mark:|
+| 1 |Codebase|This application contains only one repository and is tracked in Git.|:white_check_mark:|
 | 2 |Dependencies|Required packages are clearly stated in the requirements.txt file.|:white_check_mark:|
 | 3 |Config| All the service configs are read from the enviroment variables.|:white_check_mark:|
 | 4 |Backing Services|The service is attached to it's database by a URL.|:white_check_mark:|
